@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe Mastermind::Ruby do
+RSpec.describe Mastermind do
   it "has a version number" do
-    expect(Mastermind::Ruby::VERSION).not_to be nil
+    expect(Mastermind::VERSION).not_to be nil
   end
 
   it "does something useful" do

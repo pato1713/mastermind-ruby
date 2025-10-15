@@ -3,8 +3,5 @@
 require_relative "ruby/version"
 
 module Mastermind
-  module Ruby
-    class Error < StandardError; end
-    # Your code goes here...
-  end
+ class Error < StandardError; end
 end

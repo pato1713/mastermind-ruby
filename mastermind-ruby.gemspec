@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/mastermind/ruby/version"
+require_relative "lib/mastermind/version"
 
 Gem::Specification.new do |spec|
   spec.name = "mastermind-ruby"
-  spec.version = Mastermind::Ruby::VERSION
+  spec.version = Mastermind::VERSION
   spec.authors = ["Patryk Rajpold"]
   spec.email = ["patryk.rajpold@gmail.com"]
 
