@@ -86,7 +86,7 @@ module Mastermind
         return true
       end
 
-      return unless @game_data.length == MAX_ROUNDS
+      return false unless @game_data.length == MAX_ROUNDS
 
       show_lost_info
       true
