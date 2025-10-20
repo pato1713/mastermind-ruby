@@ -8,12 +8,15 @@ module Mastermind
       MAX_TURNS = 12
       CODE_LENGTH = 4
 
-      def initialize
+      def initialize(game_data)
         @pastel = Pastel.new
 
-        rows = MAX_TURNS.times.map do |turn|
-          [(turn + 1).to_s, @pastel.cyan("● ● ● ●"), "○ ○"]
+        rows = game_data.each_with_index.map do |data, turn|
+          pegs = data[:code].map { |color| @pastel.decorate("●", color) }.join(" ")
+          feedback = data[:feedback].map { |color| @pastel.decorate("○", color) }.join(" ")
+          [(turn + 1).to_s, pegs, feedback]
         end
+
         @table = TTY::Table.new(header: HEADERS, rows: rows)
       end
 

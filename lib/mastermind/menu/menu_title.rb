@@ -9,7 +9,7 @@ module Mastermind
       TITLE = "Mastermind"
 
       def initialize
-        @font = TTY::Font.new # or :slant, :small, etc.
+        @font = TTY::Font.new
         @pastel = Pastel.new
       end
 
