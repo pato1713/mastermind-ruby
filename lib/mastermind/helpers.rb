@@ -2,14 +2,10 @@
 
 module Mastermind
   module Helpers
-    # Module methods (can be called as Mastermind::Helpers.clear_screen)
-    def self.clear_screen
-      print "\e[2J\e[f"
-    end
+    ALLOWED_COLORS = %i[red blue yellow green white magenta].freeze
 
-    # Instance methods (available when included in a class)
     def clear_screen
-      Helpers.clear_screen
+      print "\e[2J\e[f"
     end
   end
 end

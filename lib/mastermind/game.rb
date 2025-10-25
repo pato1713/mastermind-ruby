@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require "mastermind/codebreaker"
 require "mastermind/menu"
+require "mastermind/guess"
 require "mastermind/title"
 require "mastermind/board"
 require "mastermind/helpers"
@@ -13,7 +15,6 @@ module Mastermind
   class Game
     include Helpers
 
-    ALLOWED_COLORS = %i[red blue yellow green white magenta].freeze
     CODE_LENGTH = 4
     MAX_ROUNDS = 12
 
@@ -30,12 +31,23 @@ module Mastermind
       return if @menu.choice == :exit
 
       clear_screen
-      main_loop
+
+      if @menu.choice == :codebreaker
+        codebreaker_main_loop
+      elsif @menu.choice == :codemaker
+        codemaker_main_loop
+      end
     end
 
     private
 
-    def main_loop
+    def codemaker_main_loop
+      @title.show
+      user_secret = SelectCode.new.code
+      Codebreaker.new(user_secret).start
+    end
+
+    def codebreaker_main_loop
       until finished?
         Board.new(@game_data).show
         guess
@@ -45,28 +57,7 @@ module Mastermind
 
     def guess
       user_guess = SelectCode.new.code
-      feedback = []
-      guess_unmatched = []
-      secret_unmatched = []
-
-      # Find exact matches
-      user_guess.zip(@secret).each do |g, s|
-        if g == s
-          feedback.push(:red)
-        else
-          guess_unmatched.push(g)
-          secret_unmatched.push(s)
-        end
-      end
-
-      # Find other matches
-      guess_unmatched.each do |g|
-        if secret_unmatched.include?(g)
-          feedback.push(:white)
-          secret_unmatched.delete_at(secret_unmatched.index(g))
-        end
-      end
-
+      feedback = Guess.new(@secret).make_guess(user_guess)
       @game_data.push({
                         code: user_guess,
                         feedback: feedback

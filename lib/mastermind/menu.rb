@@ -13,7 +13,8 @@ module Mastermind
 
     def show
       @choice = @prompt.select("What would you like to do?") do |menu|
-        menu.choice "Start the game", :start
+        menu.choice "Start as Codebreaker", :codebreaker
+        menu.choice "Start as Codemaker", :codemaker
         menu.choice "Exit", :exit
       end
     end
